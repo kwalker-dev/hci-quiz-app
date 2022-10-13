@@ -25,5 +25,6 @@ run 'ng build' in the project directory in command terminal to build the project
 \
 run 'http-server' on the dist\hci-app
 \
+\
 open browser and navigate to localhost:8080
 \
