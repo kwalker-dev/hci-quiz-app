@@ -27,4 +27,3 @@ run 'http-server' on the dist\hci-app
 \
 \
 open browser and navigate to localhost:8080
-\
