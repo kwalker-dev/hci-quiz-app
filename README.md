@@ -2,6 +2,7 @@
 
 Steps to get setup:
 \
+\
 Install Visual Studio Code
 \
 Install Nodejs
@@ -14,7 +15,9 @@ run 'npm install -g @angular/cli'
 \
 run 'npm install --global http-server'
 \
+\
 Clone this project to your computer
+\
 \
 run 'npm install' on the project directory in command terminal to install dependencies
 \
