@@ -9,6 +9,7 @@ Install Nodejs
 \
 \
 In a command prompt window:
+\
 run 'Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned'
 \
 run 'npm install -g @angular/cli'
