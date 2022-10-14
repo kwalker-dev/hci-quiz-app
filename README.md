@@ -7,9 +7,7 @@ Install Visual Studio Code
 \
 Install Nodejs
 \
-Install the Angular CLI
 \
-/
 In a command prompt window:
 run 'Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned'
 \
