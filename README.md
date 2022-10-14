@@ -20,7 +20,7 @@ run 'npm install --global http-server'
 Clone this project to your computer
 \
 \
-open the cloned project in visual studio code and open a terminal window
+open the cloned project in visual studio code and open a terminal window:
 \
 run 'npm install' on the project directory in command terminal to install dependencies
 \
