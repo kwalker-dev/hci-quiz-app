@@ -12,3 +12,12 @@
   bottom: 0;
   right: 0;
 }
+
+.start-quiz-button {
+  background-color: #0E6531;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
