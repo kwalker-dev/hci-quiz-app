@@ -7,12 +7,13 @@ import {
 } from '@angular/router';
 import { ErrorComponent } from './error/error.component';
 import { QuizStartedComponent } from './quiz/quiz-started/quiz-started.component';
+import { QuizStartedGuard } from './quiz/quiz-started/quiz-started.guard';
 import { QuizComponent } from './quiz/quiz.component';
 import { SubmissionComponent } from './submission/submission.component';
 
 const routes: Routes = [
-  { path: 'quiz', component: QuizComponent },
-  { path: 'quiz-started', component: QuizStartedComponent },
+  { path: 'quiz', component: QuizComponent ,},
+  { path: 'quiz-started', component: QuizStartedComponent, canActivate: [QuizStartedGuard]},
   { path: 'submission', component: SubmissionComponent },
   { path: '', redirectTo: 'quiz', pathMatch: 'full' },
   { path: '**', component: ErrorComponent }

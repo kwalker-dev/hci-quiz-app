@@ -11,9 +11,4 @@ export class QuizStartedComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
-  startQuiz(): void {
-
-  }
-
 }

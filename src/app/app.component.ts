@@ -76,7 +76,5 @@ export class AppComponent implements OnInit {
         this.loaded = true;
       }
     });
-
-    this.notificationService.openSnackBar('this is a test notification on start up.')
   }
 }
