@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { fromEvent, merge, Observable, of, Subscription } from 'rxjs';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { shareReplay, map } from 'rxjs/operators';
 import { User } from './core/user';
@@ -13,6 +13,7 @@ import {
 } from '@angular/router';
 import { NotificationService } from './shared/notification.service';
 import { UserService } from './core/user.service';
+import { StatusService } from './shared/status.service';
 
 @Component({
   selector: 'app-root',
@@ -35,7 +36,8 @@ export class AppComponent implements OnInit {
     private breakpointObserver: BreakpointObserver,
     private notificationService: NotificationService,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private statusService: StatusService
   ) {
     router.events.subscribe((routerEvent: Event) => {
       this.checkRouterEvent(routerEvent);
@@ -76,5 +78,7 @@ export class AppComponent implements OnInit {
         this.loaded = true;
       }
     });
+
+    this.statusService.getStatus()
   }
 }
