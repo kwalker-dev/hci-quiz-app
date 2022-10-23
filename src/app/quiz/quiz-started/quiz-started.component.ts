@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Question } from 'src/app/core/question';
 import { QuestionService } from 'src/app/core/question.service';
 import { QuestionsResolved } from './question-data';
-import { QuizStartedResolver } from './quiz-started.resolver.service';
 @Component({
   selector: 'app-quiz-started',
   templateUrl: './quiz-started.component.html',
@@ -11,11 +11,12 @@ import { QuizStartedResolver } from './quiz-started.resolver.service';
 })
 export class QuizStartedComponent implements OnInit {
   questions: Question[] = [];
+  formGroup: FormGroup[] = [];
 
   constructor(
     private route: ActivatedRoute,
-    private questionService: QuestionService
-
+    private questionService: QuestionService,
+    private fb: FormBuilder
   ) { }
 
   ngOnInit(): void {
@@ -31,5 +32,20 @@ export class QuizStartedComponent implements OnInit {
         console.log(err);
       }
     });
+
+    for (let index = 0; index < this.questions.length; index++) {
+      this.formGroup[index] = this.fb.group({
+        ctrl: ['', Validators.required]
+      });
+    }
+  }
+
+  submitQuiz() {
+    for (let index = 0; index < this.formGroup.length; index++) {
+      if (!this.formGroup[index].valid) {
+        confirm('There are unanswered questions. Are you sure you want to continue?');
+        break;
+      }
+    }
   }
 }
