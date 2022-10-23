@@ -6,6 +6,7 @@ import {
   NoPreloading
 } from '@angular/router';
 import { ErrorComponent } from './error/error.component';
+import { QuizOfflineComponent } from './quiz/quiz-offline/quiz-offline.component';
 import { QuizStartedComponent } from './quiz/quiz-started/quiz-started.component';
 import { QuizStartedGuard } from './quiz/quiz-started/quiz-started.guard';
 import { QuizStartedResolver } from './quiz/quiz-started/quiz-started.resolver.service';
@@ -20,6 +21,7 @@ const routes: Routes = [
     canActivate: [QuizStartedGuard], 
     resolve: { questions: QuizStartedResolver }
   },
+  { path: 'quiz-offline', component: QuizOfflineComponent},
   { path: 'submission', component: SubmissionComponent },
   { path: '', redirectTo: 'quiz', pathMatch: 'full' },
   { path: '**', component: ErrorComponent }

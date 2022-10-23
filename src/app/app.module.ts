@@ -14,13 +14,15 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { CoreModule } from './core/core.module';
 import { ErrorComponent } from './error/error.component';
 import { QuizStartedComponent } from './quiz/quiz-started/quiz-started.component';
+import { QuizOfflineComponent } from './quiz/quiz-offline/quiz-offline.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     QuizComponent,
     ErrorComponent,
-    QuizStartedComponent
+    QuizStartedComponent,
+    QuizOfflineComponent
   ],
   imports: [
     BrowserModule,
