@@ -19,6 +19,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
+import {MatRadioModule} from '@angular/material/radio';
 @NgModule({
   imports: [
     CommonModule,
@@ -39,7 +40,8 @@ import { MatDividerModule } from '@angular/material/divider';
     MatCheckboxModule,
     MatInputModule,
     MatCardModule,
-    MatDividerModule
+    MatDividerModule,
+    MatRadioModule
   ],
   declarations: [LoadSpinnerComponent],
   exports: [
@@ -61,7 +63,8 @@ import { MatDividerModule } from '@angular/material/divider';
     MatCheckboxModule,
     MatInputModule,
     MatCardModule,
-    MatDividerModule
+    MatDividerModule,
+    MatRadioModule
   ],
   providers: [NotificationService]
 })

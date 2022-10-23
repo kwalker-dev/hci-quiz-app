@@ -1,1 +1,21 @@
-<p>quiz-started works!</p>
+<div *ngFor="let question of questions;let i = index">
+<mat-card class="card">
+    <mat-card-title>Question {{i+1}}</mat-card-title>
+    <mat-card-subtitle></mat-card-subtitle>
+    <mat-card-content>
+      <p>{{question.question}}</p>
+      <mat-divider></mat-divider>
+    </mat-card-content>
+    <mat-card-actions>
+        <mat-radio-group
+        class="radio-group">
+        <mat-radio-button class="radio-button" *ngFor="let option of question.options" [value]="option">
+          {{option}}
+        </mat-radio-button>
+      </mat-radio-group>
+    </mat-card-actions>
+  </mat-card>
+</div>
+  <div class="submit-container">
+    <button class="submit-button" mat-raised-button color="primary">Submit</button>
+  </div>
