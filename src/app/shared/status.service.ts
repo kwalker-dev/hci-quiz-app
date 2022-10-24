@@ -21,14 +21,18 @@ import { NotificationService } from './notification.service';
     return navigator.onLine
   }
 
-  getStatus() {
-    this.status = this.isOnline()
-    this.subscription = merge(
+  getCurrentStatus() {
+    return merge(
       of(null),
       fromEvent(window, 'online'),
       fromEvent(window, 'offline')
     )
       .pipe(map(() => this.isOnline()))
+  }
+
+  getStatus() {
+    this.status = this.isOnline()
+    this.subscription = this.getCurrentStatus()
       .subscribe(retStatus => {
         if (retStatus != this.status) {
           if (retStatus) {

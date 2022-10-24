@@ -17,11 +17,11 @@ export class QuizComponent implements OnInit {
 
   startQuiz(): void {
     if (this.statusService.isOnline()) {
-      if (confirm("You are about to start the quiz. Please confirm to continue")) {
+      if (confirm("You are about to start the quiz. Please confirm to continue.")) {
         this.router.navigate(['quiz/started'])
       }
     } else {
-      this.notificationService.openSnackBar('you are currently offline. try agian later.')
+      this.notificationService.openSnackBar('You are currently offline. Try agian later.')
     }
   }
 }
