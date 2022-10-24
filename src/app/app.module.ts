@@ -20,9 +20,7 @@ import { QuizOfflineComponent } from './quiz/quiz-offline/quiz-offline.component
   declarations: [
     AppComponent,
     QuizComponent,
-    ErrorComponent,
-    QuizStartedComponent,
-    QuizOfflineComponent
+    ErrorComponent
   ],
   imports: [
     BrowserModule,

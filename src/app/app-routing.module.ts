@@ -14,14 +14,10 @@ import { QuizComponent } from './quiz/quiz.component';
 import { SubmissionComponent } from './submission/submission.component';
 
 const routes: Routes = [
-  { path: 'quiz', component: QuizComponent ,},
-  { 
-    path: 'quiz-started', 
-    component: QuizStartedComponent, 
-    canActivate: [QuizStartedGuard], 
-    resolve: { questions: QuizStartedResolver }
-  },
-  { path: 'quiz-offline', component: QuizOfflineComponent},
+  { path: 'quiz',
+  loadChildren: () =>
+      import('./quiz/quiz.module').then(m => m.QuizModule),
+    },
   { path: 'submission', component: SubmissionComponent },
   { path: '', redirectTo: 'quiz', pathMatch: 'full' },
   { path: '**', component: ErrorComponent }

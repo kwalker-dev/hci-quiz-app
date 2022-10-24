@@ -70,7 +70,7 @@ export class QuizStartedComponent implements OnInit {
       this.router.navigate(['/submission']);
       } else {
         // TODO: store the state and wait to submit to server
-        this.router.navigate(['/quiz-offline']);
+        this.router.navigate(['/quiz/offline']);
       }
   }
 }
