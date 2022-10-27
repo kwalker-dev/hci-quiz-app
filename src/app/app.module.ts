@@ -13,8 +13,6 @@ import { QuizComponent } from './quiz/quiz.component';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { CoreModule } from './core/core.module';
 import { ErrorComponent } from './error/error.component';
-import { QuizStartedComponent } from './quiz/quiz-started/quiz-started.component';
-import { QuizOfflineComponent } from './quiz/quiz-offline/quiz-offline.component';
 
 @NgModule({
   declarations: [
@@ -27,9 +25,9 @@ import { QuizOfflineComponent } from './quiz/quiz-offline/quiz-offline.component
     AppRoutingModule,
     CoreModule,
     SharedModule,
-    HttpClientInMemoryWebApiModule.forRoot(InMemWebApiService, {
+    /* HttpClientInMemoryWebApiModule.forRoot(InMemWebApiService, {
       delay: 1000
-    }),
+    }), */
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the application is stable

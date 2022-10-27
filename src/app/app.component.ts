@@ -59,25 +59,12 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loaded = false;
+    this.loaded = true;
     this.loading = true;
         this.user = {
       id: 0,
       userid: ''
     };
-    
-    this.userService.getUser().subscribe({
-      next: (data: User) => {
-        this.router.navigate(['quiz']);
-        this.loaded = true;
-      },
-      error: err => {
-        console.log(err);
-        this.user.userid = '';
-        this.router.navigate(['error']);
-        this.loaded = true;
-      }
-    });
 
     this.statusService.getStatus()
   }

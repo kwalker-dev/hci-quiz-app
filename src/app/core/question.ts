@@ -1,5 +1,11 @@
 export interface Question {
-    question: string;
-    options: string[];
-    selectedOption: string | undefined
+    Question: string;
+    QuestionId: number;
+    QuestionNum: number;
+    Options: Options[];
+  }
+
+  export interface Options {
+    Value: string;
+    Selected: boolean;
   }

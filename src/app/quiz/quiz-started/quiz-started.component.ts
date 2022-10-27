@@ -29,14 +29,6 @@ export class QuizStartedComponent implements OnInit {
       const resolvedData: QuestionsResolved = data['questions'];
       this.questions = resolvedData.questions;
     });
-    this.questionService.getQuestion().subscribe({
-      next: (data: Question[]) => {
-        this.questions = data
-      },
-      error: err => {
-        console.log(err);
-      }
-    });
 
     for (let index = 0; index < this.questions.length; index++) {
       this.formGroup[index] = this.fb.group({
