@@ -19,7 +19,7 @@ export class QuizStartedResolver implements Resolve<QuestionsResolved> {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<QuestionsResolved> {
-    return this.questionServce.getQuestion().pipe(
+    return this.questionServce.postQuestion().pipe(
       map(questions => ({ questions })),
       catchError(error => {
         return of({

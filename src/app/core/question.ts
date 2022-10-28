@@ -6,6 +6,11 @@ export interface Question {
   }
 
   export interface Options {
+    OptionId: number;
     Value: string;
     Selected: boolean;
+  }
+
+  export interface Answer {
+    OptionId: number;
   }
