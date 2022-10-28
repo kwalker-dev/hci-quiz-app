@@ -1,14 +1,29 @@
+
+.card {
+  margin: auto;
+  top: 50px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  width: 60%
+}
+
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0;
+  align-items: flex-start;
+}
+
+.radio-button {
+  margin-top: 15px;
+  margin: 5px;
+}
+
 .submission-container {
   margin-top: 20px;
-  text-align: center;
-  position: fixed;
-  z-index: 999;
-  height: 80%;
-  width: 80%;
-  overflow: show;
-  margin: auto;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
+  margin-left: 20px;
+}
+
+.mat-radio-button.mat-radio-disabled .mat-radio-label-content {
+    color: inherit;
 }

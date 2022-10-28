@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { User } from './user';
 import { tap } from 'rxjs/operators';
-import { Answer, Question } from './question';
+import { Answer, PostQuestion, Question, QuizResult } from './question';
 
 @Injectable({
   providedIn: 'root'
@@ -15,12 +15,16 @@ export class QuestionService {
   constructor(private http: HttpClient) {
   }
 
-  postQuestion(): Observable<Question[]> {
-      return this.http.post<Question[]>(this.baseUrl + '/api/user/kw/questions',"{}",this.options).pipe(tap(o => (o)));
+  postQuestion(postQuestion: PostQuestion): Observable<Question[]> {
+      return this.http.post<Question[]>(this.baseUrl + '/api/user/postQuestion',postQuestion,this.options).pipe(tap(o => (o)));
   }
 
-  putAnswer(answers: Answer[]): void {
-    this.http.put<any>(this.baseUrl + '/api/user/kw/questions',answers,this.options).subscribe();
+  putAnswer(answers: Answer[]): Observable<any> {
+    return this.http.put<any>(this.baseUrl + '/api/user/kw/putAnswers', answers, this.options);
+  }
+
+  getQuizResult(userid: string): Observable<QuizResult> {
+    return this.http.get<QuizResult>(this.baseUrl + '/api/user/kw/quizResult', this.options).pipe(tap(o => (o)));
   }
 
 }

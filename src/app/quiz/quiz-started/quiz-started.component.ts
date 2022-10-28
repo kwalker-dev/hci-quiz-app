@@ -39,13 +39,16 @@ export class QuizStartedComponent implements OnInit {
 
   submitQuiz() {
     if(this.isValidForm()) {
-      this.questionService.putAnswer(this.SelectedAnswers);
-      this.routeToSubmission();
+      this.questionService.putAnswer(this.SelectedAnswers).subscribe(() => {
+        this.routeToSubmission();
+      });
+
     } else {
       if (confirm('There are unanswered questions. Are you sure you want to continue?')) {
-        this.questionService.putAnswer(this.SelectedAnswers);
+         this.questionService.putAnswer(this.SelectedAnswers).subscribe(() => {
         this.routeToSubmission();
-      }
+      });
+    }
     }
   }
 
@@ -65,10 +68,8 @@ export class QuizStartedComponent implements OnInit {
 
   routeToSubmission() {
     if (this.statusService.isOnline()){
-      //TODO: call api to save to data for current user
       this.router.navigate(['/submission']);
       } else {
-        // TODO: store the state and wait to submit to server
         this.router.navigate(['/quiz/offline']);
       }
   }
