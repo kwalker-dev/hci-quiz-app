@@ -6,6 +6,7 @@ import { Answer, Question, QuizResult } from '../core/question';
 import { QuestionService } from '../core/question.service';
 import { QuestionsResolved } from '../quiz/quiz-started/question-data';
 import { StatusService } from '../shared/status.service';
+import { SubmissionResolved } from './submission-data';
 
 @Component({
   selector: 'app-welcome',
@@ -27,9 +28,11 @@ export class SubmissionComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.questionService.getQuizResult('kw').subscribe(data => {
+    this.route.data.subscribe(data => {
       console.log(data);
-      this.questions = data
+      const resolvedData: SubmissionResolved = data['questions'];
+      this.questions = resolvedData.quizResult;
+      console.log(this.questions);
 
       for (let index = 0; index < this.questions.Questions.length; index++) {
         this.formGroup[index] = this.fb.group({
@@ -37,6 +40,5 @@ export class SubmissionComponent implements OnInit {
         });
       }
     });
-  
   }
 }

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { QuestionsResolved } from './question-data';
 import {
   Resolve,
   ActivatedRouteSnapshot,
@@ -9,23 +8,25 @@ import {
 } from '@angular/router';
 import { map, catchError, delay } from 'rxjs/operators';
 import { QuestionService } from 'src/app/core/question.service';
-import { PostQuestion } from 'src/app/core/question';
+import { SubmissionResolved } from './submission-data';
 
 @Injectable({
   providedIn: 'root'
 })
-export class QuizStartedResolver implements Resolve<QuestionsResolved> {
+export class SubmissionResolver implements Resolve<SubmissionResolved> {
   constructor(private questionServce: QuestionService) {}
   resolve(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): Observable<QuestionsResolved> {
-    var postQuestion: PostQuestion = {UserName: "kw"}
-    return this.questionServce.postQuestion(postQuestion).pipe(delay(500),
-      map(questions => ({ questions })), 
+  ): Observable<SubmissionResolved> {
+    return this.questionServce.getQuizResult('kw').pipe(delay(1000),
+      map(quizResult => ({ quizResult })),
       catchError(error => {
         return of({
-          questions: [],
+          quizResult: {QuizId: 0,
+            QuestionsTotal: 0,
+            QuestionsCorrect: 0,
+            Questions: []},
           error: `Retrieval error: ${error.message}`
         });
       })

@@ -46,6 +46,10 @@ export class AppComponent implements OnInit {
 
   checkRouterEvent(routerEvent: Event) {
     if (routerEvent instanceof NavigationStart) {
+      var doc = document.querySelector('mat-sidenav-content');
+      if (doc != null) {
+        doc.scrollTop = 0;      
+      }
       this.loading = true;
     }
 

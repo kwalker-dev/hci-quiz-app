@@ -6,24 +6,20 @@ import {
   NoPreloading
 } from '@angular/router';
 import { ErrorComponent } from './error/error.component';
-import { QuizOfflineComponent } from './quiz/quiz-offline/quiz-offline.component';
-import { QuizStartedComponent } from './quiz/quiz-started/quiz-started.component';
-import { QuizStartedGuard } from './quiz/quiz-started/quiz-started.guard';
-import { QuizStartedResolver } from './quiz/quiz-started/quiz-started.resolver.service';
-import { QuizComponent } from './quiz/quiz.component';
 import { SubmissionComponent } from './submission/submission.component';
+import { SubmissionResolver } from './submission/submission.resolver.service';
 
 const routes: Routes = [
   { path: 'quiz',
   loadChildren: () =>
       import('./quiz/quiz.module').then(m => m.QuizModule),
     },
-  { path: 'submission', component: SubmissionComponent },
+  { path: 'submission', component: SubmissionComponent, resolve: { questions: SubmissionResolver }},
   { path: '', redirectTo: 'quiz', pathMatch: 'full' },
   { path: '**', component: ErrorComponent }
 ];
 
-const options: ExtraOptions = { preloadingStrategy: NoPreloading };
+const options: ExtraOptions = { preloadingStrategy: NoPreloading};
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, options)],
