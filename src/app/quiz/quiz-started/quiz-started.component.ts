@@ -39,16 +39,11 @@ export class QuizStartedComponent implements OnInit {
 
   submitQuiz() {
     if(this.isValidForm()) {
-      this.questionService.putAnswer(this.SelectedAnswers).subscribe(() => {
         this.routeToSubmission();
-      });
-
     } else {
       if (confirm('There are unanswered questions. Are you sure you want to continue?')) {
-         this.questionService.putAnswer(this.SelectedAnswers).subscribe(() => {
         this.routeToSubmission();
-      });
-    }
+      }
     }
   }
 
@@ -68,8 +63,11 @@ export class QuizStartedComponent implements OnInit {
 
   routeToSubmission() {
     if (this.statusService.isOnline()){
+      this.questionService.putAnswer(this.SelectedAnswers).subscribe(() => {
       this.router.navigate(['/submission']);
-      } else {
+      });
+    } else {
+        this.questionService.setSelectedAnswers(this.SelectedAnswers);
         this.router.navigate(['/quiz/offline']);
       }
   }

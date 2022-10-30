@@ -34,10 +34,15 @@ import { NotificationService } from './notification.service';
     this.status = this.isOnline()
     this.subscription = this.getCurrentStatus()
       .subscribe(retStatus => {
+        if (this.router.url === '/quiz/offline') {
+          this.status = retStatus;
+          return;
+        }
+        
         if (retStatus != this.status) {
           if (retStatus) {
             this.notificationService.openSnackBar('Internet connection has been restored.')
-          } else if (this.router.url === '/quiz-started') {
+          } else if (this.router.url === '/quiz/started') {
             this.notificationService.openSnackBar('Internet connection was lost. Please continue until time expires.')
           } else {
             this.notificationService.openSnackBar('Internet connection was lost.')

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Answer } from 'src/app/core/question';
 import { QuestionService } from 'src/app/core/question.service';
 import { StatusService } from 'src/app/shared/status.service';
 
@@ -13,17 +14,16 @@ status: boolean = false
   constructor(
     private statusService: StatusService,
     private router: Router,
-    private questionService: QuestionService
+    private questionService: QuestionService,
     ) { }
 
   ngOnInit(): void {
-    this.statusService.getCurrentStatus()
-    .subscribe(retStatus => {
+    this.statusService.getCurrentStatus().subscribe(retStatus => {
       this.status = retStatus;
       if (this.status) {
-        // TODO: call api to submit to server
-        
-        //this.router.navigate(['/submission']);
+        this.questionService.putAnswer(this.questionService.getSelectedAnswers()).subscribe(() => {
+        this.router.navigate(['/submission']);
+        })        
       }
     });
   }
