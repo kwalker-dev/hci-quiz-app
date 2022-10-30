@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Question, Options, Answer } from 'src/app/core/question';
+import { Subscription, timer } from 'rxjs';
+import { Question, Options, Answer, SubmitAnswers } from 'src/app/core/question';
 import { QuestionService } from 'src/app/core/question.service';
 import { StatusService } from 'src/app/shared/status.service';
 import { QuestionsResolved } from './question-data';
@@ -14,7 +15,12 @@ export class QuizStartedComponent implements OnInit {
   questions: Question[] = [];
   formGroup: FormGroup[] = [];
   formValid: boolean = false;
-  SelectedAnswers: Answer[] = []
+  SelectedAnswers: SubmitAnswers = {TimeTaken: 300, Answers: []}
+  countDown: Subscription | undefined;
+  counter = 300;
+  status: boolean = true;
+  quizSubmitted: boolean = false;
+
 
   constructor(
     private route: ActivatedRoute,
@@ -25,20 +31,40 @@ export class QuizStartedComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.statusService.getCurrentStatus().subscribe(status => {
+      this.status = status
+    });
+
     this.route.data.subscribe(data => {
       const resolvedData: QuestionsResolved = data['questions'];
       this.questions = resolvedData.questions;
-    });
 
-    for (let index = 0; index < this.questions.length; index++) {
-      this.formGroup[index] = this.fb.group({
-        ctrl: ['', Validators.required]
+      for (let index = 0; index < this.questions.length; index++) {
+        this.formGroup[index] = this.fb.group({
+          ctrl: ['', Validators.required]
+        });
+      }
+
+      this.countDown = timer(0, 1000).subscribe(() => {
+        if (this.counter > 0) {
+          --this.counter;
+        }
+
+        if (this.counter === 0 && this.quizSubmitted === false) {
+          this.quizSubmitted = true;
+          this.submitQuiz();
+        }
+
       });
-    }
+    });
+  }
+
+  ngOnDestroy(){
+    this.countDown?.unsubscribe();
   }
 
   submitQuiz() {
-    if(this.isValidForm()) {
+    if(this.isValidForm() || this.counter === 0) {
         this.routeToSubmission();
     } else {
       if (confirm('There are unanswered questions. Are you sure you want to continue?')) {
@@ -49,6 +75,7 @@ export class QuizStartedComponent implements OnInit {
 
   isValidForm(): boolean {
     var valid: boolean = true;
+    this.SelectedAnswers = {TimeTaken: (300 - this.counter), Answers: []}
     var opts: Answer[] = []
     for (let index = 0; index < this.formGroup.length; index++) {
       if (!this.formGroup[index].valid) {
@@ -57,7 +84,8 @@ export class QuizStartedComponent implements OnInit {
         opts[index] = {OptionId: this.formGroup[index].value.ctrl.OptionId}
       }
     }
-    this.SelectedAnswers = opts;
+    this.SelectedAnswers.Answers = opts;
+    console.log(this.SelectedAnswers);
     return valid;
   }
 
@@ -70,5 +98,19 @@ export class QuizStartedComponent implements OnInit {
         this.questionService.setSelectedAnswers(this.SelectedAnswers);
         this.router.navigate(['/quiz/offline']);
       }
+  }
+}
+
+@Pipe({
+  name: "formatTime"
+})
+export class FormatTimePipe implements PipeTransform {
+  transform(value: number): string {
+    const minutes: number = Math.floor(value / 60);
+    return (
+      ("00" + minutes).slice(-2) +
+      ":" +
+      ("00" + Math.floor(value - minutes * 60)).slice(-2)
+    );
   }
 }

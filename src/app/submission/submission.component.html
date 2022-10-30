@@ -1,6 +1,6 @@
 <div class="submission-container">
-  <h2>Score: {{questions.QuestionsCorrect}} out of {{questions.QuestionsTotal}}</h2>
-  <h2>Duration: 0:00</h2>
+  <p>Score: {{questions.QuestionsCorrect}} out of {{questions.QuestionsTotal}}</p>
+  <p>Duration: {{questions.TimeTotal | formatTime}}</p>
 </div>
 <div *ngFor="let question of questions.Questions;let i = index">
   <form [formGroup]="formGroup[i]">

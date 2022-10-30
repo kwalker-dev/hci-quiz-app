@@ -1,3 +1,10 @@
+<div class="timer-container">
+  <p>Time Remaining:</p>
+  <p>{{counter | formatTime}}</p>
+  <p>Connection Status:</p>
+  <mat-icon *ngIf="!status" class="icon">wifi_off</mat-icon>
+  <mat-icon *ngIf="status" class="icon">wifi</mat-icon>
+</div>
 <div *ngFor="let question of questions;let i = index">
 <form [formGroup]="formGroup[i]">
 <mat-card class="card">

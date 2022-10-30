@@ -20,8 +20,11 @@
 }
 
 .submission-container {
-  margin-top: 20px;
+  position: sticky!important;
+  top: 0;
   margin-left: 20px;
+  padding-top: 16px;
+  width: 150px;
 }
 
 .mat-radio-button.mat-radio-disabled .mat-radio-label-content {

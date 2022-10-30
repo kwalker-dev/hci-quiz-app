@@ -16,6 +16,10 @@ export interface Question {
     Correct: boolean;
   }
 
+  export interface SubmitAnswers {
+    TimeTaken: number;
+    Answers: Answer[];
+  }
   export interface Answer {
     OptionId: number;
   }
@@ -24,5 +28,6 @@ export interface Question {
     QuizId: number;
     QuestionsTotal: number;
     QuestionsCorrect: number;
-    Questions: Question[]
+    Questions: Question[];
+    TimeTotal: number;
   }

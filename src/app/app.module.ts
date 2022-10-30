@@ -13,14 +13,15 @@ import { QuizComponent } from './quiz/quiz.component';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { CoreModule } from './core/core.module';
 import { ErrorComponent } from './error/error.component';
-import { SubmissionComponent } from './submission/submission.component';
+import { FormatTimePipe, SubmissionComponent } from './submission/submission.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     QuizComponent,
     ErrorComponent,
-    SubmissionComponent
+    SubmissionComponent,
+    FormatTimePipe
     ],
   imports: [
     BrowserModule,

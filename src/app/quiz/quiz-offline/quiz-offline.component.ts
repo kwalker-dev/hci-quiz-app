@@ -18,6 +18,7 @@ status: boolean = false
     ) { }
 
   ngOnInit(): void {
+    
     this.statusService.getCurrentStatus().subscribe(retStatus => {
       this.status = retStatus;
       if (this.status) {

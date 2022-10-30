@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { User } from './user';
 import { tap } from 'rxjs/operators';
-import { Answer, PostQuestion, Question, QuizResult } from './question';
+import { Answer, PostQuestion, Question, QuizResult, SubmitAnswers } from './question';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ export class QuestionService {
   private baseUrl = 'http://localhost:8082';
   private options = { headers: new HttpHeaders().set('Content-Type', 'application/json').set('Access-Control-Allow-Origin','*') };
 
-  private selectedAnswers: Answer[] = []
+  private selectedAnswers: SubmitAnswers = {TimeTaken: 0, Answers: []}
 
   constructor(private http: HttpClient) {
   }
@@ -21,7 +21,7 @@ export class QuestionService {
       return this.http.post<Question[]>(this.baseUrl + '/api/user/postQuestion',postQuestion,this.options).pipe(tap(o => (o)));
   }
 
-  putAnswer(answers: Answer[]): Observable<any> {
+  putAnswer(answers: SubmitAnswers): Observable<any> {
     return this.http.put<any>(this.baseUrl + '/api/user/kw/putAnswers', answers, this.options);
   }
 
@@ -29,7 +29,7 @@ export class QuestionService {
     return this.http.get<QuizResult>(this.baseUrl + '/api/user/kw/quizResult', this.options).pipe(tap(o => (o)));
   }
 
-  setSelectedAnswers(selectedAnswers: Answer[]) {
+  setSelectedAnswers(selectedAnswers: SubmitAnswers) {
     this.selectedAnswers = selectedAnswers;
   }
 

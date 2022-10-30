@@ -26,7 +26,9 @@ export class SubmissionResolver implements Resolve<SubmissionResolved> {
           quizResult: {QuizId: 0,
             QuestionsTotal: 0,
             QuestionsCorrect: 0,
-            Questions: []},
+            Questions: [],
+            TimeTotal:0
+          },
           error: `Retrieval error: ${error.message}`
         });
       })

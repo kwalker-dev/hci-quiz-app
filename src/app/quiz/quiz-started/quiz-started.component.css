@@ -28,3 +28,13 @@
     text-align-last: end;
     height: 50px;
   }
+
+  .timer-container {
+    position: sticky!important;
+    top: 0;
+    text-align: center;
+    z-index: 999;
+    margin-left: auto;
+    padding-top: 16px;
+    width: 150px;
+  }
