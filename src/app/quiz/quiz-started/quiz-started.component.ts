@@ -20,6 +20,8 @@ export class QuizStartedComponent implements OnInit {
   countDown: Subscription | undefined;
   counter = 300;
   status: boolean = true;
+  status2: boolean = true;
+  pauseQuiz = true;
   quizSubmitted: boolean = false;
 
 
@@ -35,7 +37,6 @@ export class QuizStartedComponent implements OnInit {
     this.route.data.subscribe(data => {
       const resolvedData: QuestionsResolved = data['questions'];
       this.questions = resolvedData.questions;
-
       for (let index = 0; index < this.questions.length; index++) {
         this.formGroup[index] = this.fb.group({
           ctrl: ['', Validators.required]
@@ -53,6 +54,10 @@ export class QuizStartedComponent implements OnInit {
         }
         this.status = this.statusService.isOnline();
 
+        if(!this.status) {
+          this.status2 = false;
+        }
+
       });
     });
   }
@@ -69,6 +74,10 @@ export class QuizStartedComponent implements OnInit {
         this.routeToSubmission();
       }
     }
+  }
+
+  continueQuiz() {
+    this.status2 = true;
   }
 
   isValidForm(): boolean {

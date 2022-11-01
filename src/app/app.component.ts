@@ -63,12 +63,12 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    if(localStorage.getItem('username') === null) {
+      localStorage.setItem('username', crypto.randomUUID())
+    } 
+
     this.loaded = true;
     this.loading = true;
-        this.user = {
-      id: 0,
-      userid: ''
-    };
 
     this.statusService.getStatus();
   }

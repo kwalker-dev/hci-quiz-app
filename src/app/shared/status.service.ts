@@ -27,7 +27,7 @@ import { NotificationService } from './notification.service';
   }
 
   simulateConnection() {
-    return interval(10000)
+    return interval(30000)
 }
 
   ngOnDestroy(): void {

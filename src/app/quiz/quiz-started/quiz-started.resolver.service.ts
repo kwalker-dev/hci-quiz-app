@@ -20,7 +20,8 @@ export class QuizStartedResolver implements Resolve<QuestionsResolved> {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<QuestionsResolved> {
-    var postQuestion: PostQuestion = {UserName: "kw"}
+    var userName: string = String(localStorage.getItem('username'));
+    var postQuestion: PostQuestion = {UserName: userName}
     return this.questionServce.postQuestion(postQuestion).pipe(delay(500),
       map(questions => ({ questions })), 
       catchError(error => {

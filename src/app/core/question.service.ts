@@ -10,6 +10,7 @@ import { Answer, PostQuestion, Question, QuizResult, SubmitAnswers } from './que
 })
 export class QuestionService {
   private baseUrl = 'http://localhost:8082';
+  private userName: string = String(localStorage.getItem('username'));
   private options = { headers: new HttpHeaders().set('Content-Type', 'application/json').set('Access-Control-Allow-Origin','*') };
 
   private selectedAnswers: SubmitAnswers = {TimeTaken: 0, Answers: []}
@@ -22,11 +23,11 @@ export class QuestionService {
   }
 
   putAnswer(answers: SubmitAnswers): Observable<any> {
-    return this.http.put<any>(this.baseUrl + '/api/user/kw/putAnswers', answers, this.options);
+    return this.http.put<any>(this.baseUrl + '/api/user/'+ this.userName + '/putAnswers', answers, this.options);
   }
 
   getQuizResult(userid: string): Observable<QuizResult> {
-    return this.http.get<QuizResult>(this.baseUrl + '/api/user/kw/quizResult', this.options).pipe(tap(o => (o)));
+    return this.http.get<QuizResult>(this.baseUrl + '/api/user/'+ this.userName + '/quizResult', this.options).pipe(tap(o => (o)));
   }
 
   setSelectedAnswers(selectedAnswers: SubmitAnswers) {

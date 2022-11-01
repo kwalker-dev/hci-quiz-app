@@ -41,9 +41,30 @@
 
   .start-quiz-button {
     background-color: #0e6531;
-    height: 33;
+  }
+
+  .continue-quiz-button {
+    background-color: #0e6531;
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 
   .paragraph {
     margin-top: 10px;
   }
+
+  .warning-icon {
+    height: 75px;
+    width: 75px;
+    font-size: 60px;
+    color: orange;
+    float: left;
+}
+
+.pausedQuiz {
+  margin: auto;
+  width: 50vh;
+  padding-top: 40vh;
+}
