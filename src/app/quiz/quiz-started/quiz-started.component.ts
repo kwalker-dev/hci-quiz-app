@@ -12,6 +12,7 @@ import { QuestionsResolved } from './question-data';
   styleUrls: ['./quiz-started.component.css']
 })
 export class QuizStartedComponent implements OnInit {
+  hide: boolean = false;
   questions: Question[] = [];
   formGroup: FormGroup[] = [];
   formValid: boolean = false;
@@ -31,10 +32,6 @@ export class QuizStartedComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.statusService.getCurrentStatus().subscribe(status => {
-      this.status = status
-    });
-
     this.route.data.subscribe(data => {
       const resolvedData: QuestionsResolved = data['questions'];
       this.questions = resolvedData.questions;
@@ -54,12 +51,13 @@ export class QuizStartedComponent implements OnInit {
           this.quizSubmitted = true;
           this.submitQuiz();
         }
+        this.status = this.statusService.isOnline();
 
       });
     });
   }
 
-  ngOnDestroy(){
+  ngOnDestroy(): void {
     this.countDown?.unsubscribe();
   }
 
@@ -99,6 +97,11 @@ export class QuizStartedComponent implements OnInit {
         this.router.navigate(['/quiz/offline']);
       }
   }
+
+  toggleTimer(): void {
+    this.hide = !this.hide;
+  }
+  
 }
 
 @Pipe({

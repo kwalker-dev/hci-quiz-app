@@ -38,3 +38,12 @@
     padding-top: 16px;
     width: 150px;
   }
+
+  .start-quiz-button {
+    background-color: #0e6531;
+    height: 33;
+  }
+
+  .paragraph {
+    margin-top: 10px;
+  }

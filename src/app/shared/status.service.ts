@@ -1,14 +1,15 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { fromEvent, map, merge, of, Subscription } from 'rxjs';
+import { fromEvent, map, merge, Observable, of, Subscription, timer, interval } from 'rxjs';
 import { NotificationService } from './notification.service';
 
 @Injectable({
     providedIn: 'root'
   })
   export class StatusService {
-    status: boolean = false;
-    subscription: Subscription = Subscription.EMPTY;
+    status: boolean = true;
+    status2: boolean = true;
+    subscription$: Subscription = Subscription.EMPTY;
 
     constructor(
         private notificationService: NotificationService,
@@ -18,29 +19,33 @@ import { NotificationService } from './notification.service';
     }
   
   isOnline(): boolean {
-    return navigator.onLine
+    return navigator.onLine && this.status;
   }
 
-  getCurrentStatus() {
-    return merge(
-      of(null),
-      fromEvent(window, 'online'),
-      fromEvent(window, 'offline')
-    )
-      .pipe(map(() => this.isOnline()))
+  getSumulatedConnectionStatus() {
+    return this.status;
+  }
+
+  simulateConnection() {
+    return interval(10000)
+}
+
+  ngOnDestroy(): void {
+    this.subscription$.unsubscribe();
   }
 
   getStatus() {
-    this.status = this.isOnline()
-    this.subscription = this.getCurrentStatus()
-      .subscribe(retStatus => {
+    this.status = navigator.onLine
+    this.subscription$ = this.simulateConnection()
+      .subscribe(() => {
+        this.status2 = !this.status2
         if (this.router.url === '/quiz/offline') {
-          this.status = retStatus;
+          this.status = this.status2;
           return;
         }
         
-        if (retStatus != this.status) {
-          if (retStatus) {
+        if (this.status2 != this.status) {
+          if (this.status2) {
             this.notificationService.openSnackBar('Internet connection has been restored.')
           } else if (this.router.url === '/quiz/started') {
             this.notificationService.openSnackBar('Internet connection was lost. Please continue until time expires.')
@@ -48,7 +53,7 @@ import { NotificationService } from './notification.service';
             this.notificationService.openSnackBar('Internet connection was lost.')
           }
         }
-        this.status = retStatus;
+        this.status = this.status2;
       });
   }
 

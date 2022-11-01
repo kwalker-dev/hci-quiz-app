@@ -1,9 +1,12 @@
 <div class="timer-container">
-  <p>Time Remaining:</p>
+  <button class="start-quiz-button" mat-raised-button color="primary" (click)="toggleTimer()">{{this.hide ? 'Show' : 'Hide'}}</button>
+  <div *ngIf="!hide">
+  <p class="paragraph">Time Remaining:</p>
   <p>{{counter | formatTime}}</p>
-  <p>Connection Status:</p>
+  <p class="paragraph">Connection Status:</p>
   <mat-icon *ngIf="!status" class="icon">wifi_off</mat-icon>
   <mat-icon *ngIf="status" class="icon">wifi</mat-icon>
+</div>
 </div>
 <div *ngFor="let question of questions;let i = index">
 <form [formGroup]="formGroup[i]">

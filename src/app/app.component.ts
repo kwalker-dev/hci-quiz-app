@@ -70,6 +70,6 @@ export class AppComponent implements OnInit {
       userid: ''
     };
 
-    this.statusService.getStatus()
+    this.statusService.getStatus();
   }
 }
