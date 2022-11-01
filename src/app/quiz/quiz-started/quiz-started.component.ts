@@ -2,7 +2,7 @@ import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, timer } from 'rxjs';
-import { Question, Options, Answer, SubmitAnswers } from 'src/app/core/question';
+import { Question, Options, Answer, SubmitAnswers, QuizQuestions } from 'src/app/core/question';
 import { QuestionService } from 'src/app/core/question.service';
 import { StatusService } from 'src/app/shared/status.service';
 import { QuestionsResolved } from './question-data';
@@ -13,7 +13,7 @@ import { QuestionsResolved } from './question-data';
 })
 export class QuizStartedComponent implements OnInit {
   hide: boolean = false;
-  questions: Question[] = [];
+  questions: QuizQuestions= {QuizId: 0, Questions: []};
   formGroup: FormGroup[] = [];
   formValid: boolean = false;
   SelectedAnswers: SubmitAnswers = {TimeTaken: 300, Answers: []}
@@ -37,7 +37,8 @@ export class QuizStartedComponent implements OnInit {
     this.route.data.subscribe(data => {
       const resolvedData: QuestionsResolved = data['questions'];
       this.questions = resolvedData.questions;
-      for (let index = 0; index < this.questions.length; index++) {
+      this.pauseQuiz = resolvedData.questions.QuizId % 2 == 0;
+      for (let index = 0; index < this.questions.Questions.length; index++) {
         this.formGroup[index] = this.fb.group({
           ctrl: ['', Validators.required]
         });

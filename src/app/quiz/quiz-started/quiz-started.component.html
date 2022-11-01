@@ -1,10 +1,10 @@
-<div class="pausedQuiz" *ngIf="!status || (!status2 && pauseQuiz)">
+<div class="pausedQuiz" *ngIf="(!status && pauseQuiz) || (!status2 && pauseQuiz)">
   <div><mat-icon class="warning-icon">warning</mat-icon></div>
 <br>
 <p>There was a problem with your test window. After the problem is resovled click the continue button below to proceed.</p>
 <button class="continue-quiz-button" mat-raised-button color="primary" (click)="continueQuiz()" [disabled]="!status">Continue Quiz</button>
 </div>
-<div *ngIf="(status && !pauseQuiz) || (pauseQuiz && status2)" >
+<div *ngIf="(status && status2 && pauseQuiz) || !pauseQuiz" >
 <div class="timer-container">
   <button class="start-quiz-button" mat-raised-button color="primary" (click)="toggleTimer()">{{this.hide ? 'Show' : 'Hide'}}</button>
   <div *ngIf="!hide">
@@ -15,7 +15,7 @@
   <mat-icon *ngIf="status" class="icon">wifi</mat-icon>
 </div>
 </div>
-<div *ngFor="let question of questions;let i = index">
+<div *ngFor="let question of questions.Questions;let i = index">
 <form [formGroup]="formGroup[i]">
 <mat-card class="card">
     <mat-card-title>Question {{i+1}}</mat-card-title>

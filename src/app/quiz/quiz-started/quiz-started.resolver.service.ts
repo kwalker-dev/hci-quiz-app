@@ -26,7 +26,7 @@ export class QuizStartedResolver implements Resolve<QuestionsResolved> {
       map(questions => ({ questions })), 
       catchError(error => {
         return of({
-          questions: [],
+          questions: {Questions:[], QuizId: 0},
           error: `Retrieval error: ${error.message}`
         });
       })

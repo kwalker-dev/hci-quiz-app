@@ -1,7 +1,7 @@
-import { Question } from "src/app/core/question";
+import { Question, QuizQuestions } from "src/app/core/question";
 
 
 export interface QuestionsResolved {
-  questions: Question[];
+  questions: QuizQuestions;
   error?: any;
 }

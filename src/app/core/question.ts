@@ -5,6 +5,11 @@ export interface Question {
     Options: Options[];
   }
 
+  export interface QuizQuestions {
+    QuizId: number
+    Questions: Question[]
+  }
+
   export interface PostQuestion {
     UserName: string
   }
